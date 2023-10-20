@@ -1,4 +1,8 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using TodoApi.Models;
+
+var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
@@ -23,13 +27,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-
-[HttpPost]
-public async Task<ActionResult<TodoItem>> PostTodoItem(TodoItem todoItem)
-{
-    _context.TodoItems.Add(todoItem);
-    await _context.SaveChangesAsync();
-
-    //    return CreatedAtAction("GetTodoItem", new { id = todoItem.Id }, todoItem);
-    return CreatedAtAction(nameof(GetTodoItem), new { id = todoItem.Id }, todoItem);
-}
