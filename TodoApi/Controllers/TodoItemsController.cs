@@ -30,6 +30,7 @@ namespace TodoApi.Controllers
           {
               return NotFound();
           }
+            // DB内のTodoデータを全て取得して返す
             return await _context.TodoItems.ToListAsync();
         }
 
@@ -41,6 +42,7 @@ namespace TodoApi.Controllers
           {
               return NotFound();
           }
+            // リクエストされたIDと一致するDB内のTodoアイテムを取得
             var todoItem = await _context.TodoItems.FindAsync(id);
 
             if (todoItem == null)
