@@ -1,26 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TodoApi.Models;
+using System.Diagnostics.CodeAnalysis;
 
-var builder = WebApplication.CreateBuilder(args);
+namespace TodoApi.Models;
 
-builder.Services.AddControllers();
-builder.Services.AddDbContext<TodoContext>(opt =>
-    opt.UseInMemoryDatabase("TodoList"));
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-var app = builder.Build();
-
-if (app.Environment.IsDevelopment())
+public class TodoContext : DbContext
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    public TodoContext(DbContextOptions<TodoContext> options)
+        : base(options)
+    {
+    }
+
+    public DbSet<TodoItem> TodoItems { get; set; } = null!;
 }
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
