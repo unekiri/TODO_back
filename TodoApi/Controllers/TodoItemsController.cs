@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TodoApi.Models;
@@ -22,6 +17,13 @@ namespace TodoApi.Controllers
             _context = context;
         }
 
+        // OPTIONS: api/TodoItems
+        [HttpOptions]
+        public IActionResult Options()
+        {
+            return Ok();
+        }
+
         // GET: api/TodoItems
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TodoItem>>> GetTodoItems()
@@ -30,6 +32,9 @@ namespace TodoApi.Controllers
           {
               return NotFound();
           }
+            // 応答ヘッダーにAccess-Control-Allow-Originヘッダーを追加する
+            Response.Headers.Add("Access-Control-Allow-Origin", "*");
+
             // DB内のTodoデータを全て取得して返す
             return await _context.TodoItems.ToListAsync();
         }
@@ -50,6 +55,7 @@ namespace TodoApi.Controllers
                 return NotFound();
             }
 
+            // 200 OK
             return todoItem;
         }
 
@@ -63,12 +69,14 @@ namespace TodoApi.Controllers
                 return BadRequest();
             }
 
+            // エンティティ(todoitem)の状態をUncahngedからModifiedに変更する
             _context.Entry(todoItem).State = EntityState.Modified;
 
             try
             {
                 await _context.SaveChangesAsync();
             }
+            // 同時実行制御に関する例外(更新中に別のユーザーによって値が書き換えられた場合など)
             catch (DbUpdateConcurrencyException)
             {
                 if (!TodoItemExists(id))
@@ -89,10 +97,15 @@ namespace TodoApi.Controllers
         [HttpPost]
         public async Task<ActionResult<TodoItem>> PostTodoItem(TodoItem todoItem)
         {
-          if (_context.TodoItems == null)
+
+            if (_context.TodoItems == null)
           {
               return Problem("Entity set 'TodoContext.TodoItems'  is null.");
           }
+            Response.Headers.Add("Access-Control-Allow-Origin", "*");
+            Response.Headers.Add("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE");
+            Response.Headers.Add("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization");
+
             // POSTされたデータをContextクラスに追加する
             _context.TodoItems.Add(todoItem);
 
