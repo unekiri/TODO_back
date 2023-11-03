@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.Extensions.Options;
 using TodoApi.Models;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -20,7 +21,7 @@ builder.Services.AddCors(opt =>
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<TodoContext>(opt =>
-    opt.UseNpgsql("Server=localhost;port5432;Database=my_db;Username=nakaoshougo;Password=password"));
+   opt.UseNpgsql(builder.Configuration.GetConnectionString("TodoContext") ?? throw new InvalidOperationException("Connection string 'TodooContext' not found.")));
 
 var app = builder.Build();
 

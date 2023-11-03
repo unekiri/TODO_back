@@ -13,9 +13,4 @@ public class TodoContext : DbContext
     }
 
     public DbSet<TodoItem> TodoItems { get; set; } = null!;
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseNpgsql("Server=localhost;port5432;Database=my_db;Username=nakaoshougo;Password=password");
-    }
 }
