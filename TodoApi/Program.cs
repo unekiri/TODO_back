@@ -10,7 +10,8 @@ builder.Services.AddCors(opt =>
     opt.AddPolicy(name: MyAllowSpecificOrigins,
                   policy =>
                   {
-                      policy.WithOrigins("http://127.0.0.1:5500/views/add_text.html");
+                      policy.WithOrigins("http://127.0.0.1:5500")
+                      .AllowAnyHeader();
                   });
 });
 
