@@ -32,8 +32,6 @@ namespace TodoApi.Controllers
           {
               return NotFound();
           }
-            // 応答ヘッダーにAccess-Control-Allow-Originヘッダーを追加する(テストした結果、この記述は必要みたい)
-            Response.Headers.Add("Access-Control-Allow-Origin", "*");
 
             // DB内のTodoデータを全て取得して返す
             return await _context.TodoItems.ToListAsync();

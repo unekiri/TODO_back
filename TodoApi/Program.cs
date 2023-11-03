@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
 using TodoApi.Models;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -19,7 +20,7 @@ builder.Services.AddCors(opt =>
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<TodoContext>(opt =>
-    opt.UseInMemoryDatabase("TodoList"));
+    opt.UseNpgsql("Server=localhost;port5432;Database=my_db;Username=nakaoshougo;Password=password"));
 
 var app = builder.Build();
 
