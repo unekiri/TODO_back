@@ -32,7 +32,7 @@ namespace TodoApi.Controllers
           {
               return NotFound();
           }
-            // 応答ヘッダーにAccess-Control-Allow-Originヘッダーを追加する
+            // 応答ヘッダーにAccess-Control-Allow-Originヘッダーを追加する(テストした結果、この記述は必要みたい)
             Response.Headers.Add("Access-Control-Allow-Origin", "*");
 
             // DB内のTodoデータを全て取得して返す
@@ -102,9 +102,6 @@ namespace TodoApi.Controllers
           {
               return Problem("Entity set 'TodoContext.TodoItems'  is null.");
           }
-            Response.Headers.Add("Access-Control-Allow-Origin", "*");
-            Response.Headers.Add("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE");
-            Response.Headers.Add("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization");
 
             // POSTされたデータをContextクラスに追加する
             _context.TodoItems.Add(todoItem);
