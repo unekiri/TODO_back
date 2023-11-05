@@ -13,7 +13,8 @@ builder.Services.AddCors(opt =>
                   policy =>
                   {
                       policy.AllowAnyOrigin()
-                      .AllowAnyHeader();
+                            .AllowAnyHeader()
+                            .AllowAnyMethod(); // 全てのHTTPメソッドを許可する
                   });
 });
 
