@@ -1,4 +1,6 @@
-﻿namespace TodoApi.Models;
+﻿// エンティティ(DBのテーブルに対応する)
+
+namespace TodoApi.Models;
 using System.ComponentModel.DataAnnotations;
 
 

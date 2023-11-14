@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿// エンティティとDBを対応付ける
+
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 
