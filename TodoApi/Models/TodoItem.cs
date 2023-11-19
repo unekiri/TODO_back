@@ -13,8 +13,8 @@ public class TodoItem
     [StringLength(100, ErrorMessage = "入力は100文字以内にして下さい")]
     public string? Name { get; set; }
 
-    [Required(ErrorMessage = "日付を入力して下さい")]
     public bool IsComplete { get; set; }
 
+    [Required(ErrorMessage = "日付を入力して下さい")]
     public DateTime Date { get; set; }
 }
