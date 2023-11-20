@@ -5,14 +5,17 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TodoApi.Controllers
 {
+    // program.csではなく、controller側のルート属性により、ルートの指定を行う
     [Route("api/[controller]")]
+
+    // controllerがWebAPIのリクエストに応答する
     [ApiController]
+
     public class TodoItemsController : ControllerBase
     {
         private readonly TodoContext _context;
 
-        // TodoContextクラスをControllerに挿入
-
+        // TodoContextクラスをControllerに挿入(各メソッド内でContextクラスを使用することができる)
         public TodoItemsController(TodoContext context)
         {
             _context = context;
@@ -51,6 +54,7 @@ namespace TodoApi.Controllers
 
             if (todoItem == null)
             {
+                // 404 Not Found
                 return NotFound();
             }
 
@@ -68,13 +72,15 @@ namespace TodoApi.Controllers
                 return BadRequest();
             }
 
-            // エンティティ(todoitem)の状態をUncahngedからModifiedに変更する
+            // エンティティ(todoitem)の状態をUnchangedからModifiedに変更する
             _context.Entry(todoItem).State = EntityState.Modified;
 
             try
             {
+                // データをDBに保存する
                 await _context.SaveChangesAsync();
             }
+
             // 同時実行制御に関する例外(更新中に別のユーザーによって値が書き換えられた場合など)
             catch (DbUpdateConcurrencyException)
             {
@@ -105,7 +111,7 @@ namespace TodoApi.Controllers
             // POSTされたデータをContextクラスに追加する
             _context.TodoItems.Add(todoItem);
 
-            // Contextクラスに追加されたデータをDBに登録する(INSERT文が実行される)
+            // データをDBに保存する
             await _context.SaveChangesAsync();
 
             // ステータスコード201(Created)を返し、GetTodoItemメソッドを呼び出す
@@ -120,13 +126,19 @@ namespace TodoApi.Controllers
             {
                 return NotFound();
             }
+
+            // リクエストされたIDと一致するDB内のTodoアイテムを取得
             var todoItem = await _context.TodoItems.FindAsync(id);
+
             if (todoItem == null)
             {
                 return NotFound();
             }
 
+            // DELETEするデータをContextクラスから取り除く
             _context.TodoItems.Remove(todoItem);
+
+            // データをDBに保存する
             await _context.SaveChangesAsync();
 
             return NoContent();
