@@ -46,10 +46,6 @@ if (builder.Environment.IsDevelopment())
 // CORSポリシーをアプリケーションに適用する(クライアントからのHTTPリクエストの許可)
 app.UseCors(MyAllowSpecificOrigins);
 
-// 静的ファイルサービスを有効にし、デフォルトのファイル(index.html)を提供を可能にする
-app.UseDefaultFiles();
-app.UseStaticFiles();
-
 // HTTPSへのリダイレクトを可能にする(HTTPリクエストがあった際に、HTTPS接続にリダイレクトする)
 app.UseHttpsRedirection();
 
