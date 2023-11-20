@@ -23,7 +23,7 @@ builder.Services.AddCors(opt =>
                   });
 });
 
-// services.AddResponseCashing();
+// services.AddResponseCashing(); 一時的に保存したリソースを、同じリクエストが再度送信された場合に、再利用する
 
 // コントローラーをAPPに追加する
 builder.Services.AddControllers();
