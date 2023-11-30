@@ -8,7 +8,7 @@ namespace TodoApi.Controllers
     // program.csではなく、controller側のルート属性により、ルートの指定を行う
     [Route("api/[controller]")]
 
-    // controllerがWebAPIのリクエストに応答する
+    // controllerがWebAPIへのリクエストに応答する
     [ApiController]
 
     public class TodoItemsController : ControllerBase
