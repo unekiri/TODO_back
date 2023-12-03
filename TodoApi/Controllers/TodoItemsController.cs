@@ -62,6 +62,40 @@ namespace TodoApi.Controllers
             return todoItem;
         }
 
+        // GET: api/TodoItems/Incomplete
+        [HttpGet("Incomplete")]
+        public async Task<ActionResult<IEnumerable<TodoItem>>> GetIncompleteTodoItems()
+        {
+            if (_context.TodoItems == null)
+            {
+                return NotFound();
+            }
+
+            // Retrieve only incomplete (未完了) TODO items
+            var incompleteTodoItems = await _context.TodoItems
+                .Where(item => !item.IsComplete)
+                .ToListAsync();
+
+            return incompleteTodoItems;
+        }
+
+        // GET: api/TodoItems/Complete
+        [HttpGet("Complete")]
+        public async Task<ActionResult<IEnumerable<TodoItem>>> GetCompleteTodoItems()
+        {
+            if (_context.TodoItems == null)
+            {
+                return NotFound();
+            }
+
+            // Retrieve only completed (完了) TODO items
+            var completeTodoItems = await _context.TodoItems
+                .Where(item => item.IsComplete)
+                .ToListAsync();
+
+            return completeTodoItems;
+        }
+
         // PUT: api/TodoItems/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
