@@ -26,7 +26,7 @@ builder.Services.AddCors(opt =>
 // コントローラーをAPPに追加する
 builder.Services.AddControllers();
 
-// DBコンテキストをAPPに追加する(DB接続文字列を構成から取得して、DBにアクセスできるようにする)
+// DBコンテキストをAPPに追加する(DB接続文字列を構成ファイルから取得して、DBにアクセスできるようにする)
 builder.Services.AddDbContext<TodoContext>(opt =>
    　　　　　　　　// appsettings.json(アプリケーションの構成ファイル)から'TodoContext'という名前の接続文字列を取得する
    opt.UseNpgsql(builder.Configuration.GetConnectionString("TodoContext") ?? throw new InvalidOperationException("Connection string 'TodooContext' not found.")));
