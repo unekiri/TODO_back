@@ -1,5 +1,3 @@
-// 開発時にローカルでプロジェクトを実行する際の設定
-
 {
   "$schema": "https://json.schemastore.org/launchsettings.json",
   "iisSettings": {
