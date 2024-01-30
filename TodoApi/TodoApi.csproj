@@ -39,4 +39,7 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Content Remove="Properties\ServiceDependencies\nakaoback - Web Deploy\profile.arm.json" />
+  </ItemGroup>
 </Project>
