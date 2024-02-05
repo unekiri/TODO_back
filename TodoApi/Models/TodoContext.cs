@@ -1,4 +1,4 @@
-﻿// エンティティとDBを対応付ける
+﻿// TodoItemエンティティとDBを対応付ける
 
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -14,5 +14,6 @@ public class TodoContext : DbContext
     {
     }
 
+    // どのエンティティがデータベースのどのテーブルに対応するかを定義する
     public DbSet<TodoItem> TodoItems { get; set; } = null!;
 }

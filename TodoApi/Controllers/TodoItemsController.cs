@@ -1,3 +1,5 @@
+// TodoItem エンティティに対する CRUD（作成、読み取り、更新、削除）操作を実行するエンドポイント
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TodoApi.Models;
@@ -5,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TodoApi.Controllers
 {
-    // program.csではなく、controller側のルート属性により、ルートの指定を行う
+    // controller側のルート属性により、ルートの指定を行う
     [Route("api/[controller]")]
 
     // controllerがWebAPIへのリクエストに応答する
@@ -22,6 +24,7 @@ namespace TodoApi.Controllers
         }
 
         // OPTIONS: api/TodoItems
+        // このAPIエンドポイントのサポートするHTTPメソッドの情報を提供
         [HttpOptions]
         public IActionResult Options()
         {
@@ -106,7 +109,7 @@ namespace TodoApi.Controllers
                 return BadRequest();
             }
 
-            // エンティティ(todoitem)の状態をUnchangedからModifiedに変更する
+            // エンティティ(todoitem)の状態をUnchangedからModifiedに変更する(EF Coreにエンティティが変更されたことを通知し、次にデータベースへの変更をコミットする際にこれらの変更を含めるように指示する)
             _context.Entry(todoItem).State = EntityState.Modified;
 
             try
@@ -178,6 +181,7 @@ namespace TodoApi.Controllers
             return NoContent();
         }
 
+        // 指定されたIDを持つ TodoItem が存在するかどうかを確認(ヘルパーメソッド)
         private bool TodoItemExists(long id)
         {
             return (_context.TodoItems?.Any(e => e.Id == id)).GetValueOrDefault();

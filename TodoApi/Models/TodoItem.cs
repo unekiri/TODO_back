@@ -1,4 +1,4 @@
-﻿// エンティティ(DBのテーブルに対応する)
+﻿// エンティティ(DBのテーブルに対応するクラスのインスタンス)
 
 namespace TodoApi.Models;
 using System;
